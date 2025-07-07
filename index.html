@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emoji Explorer - 絵文字クイズアプリ</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#667eea">
+    <meta name="description" content="絵文字の名前を覚えるクイズアプリ">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="">
+    <meta property="og:title" content="Emoji Explorer - 絵文字クイズアプリ">
+    <meta property="og:description" content="絵文字の名前を覚えるクイズアプリ">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="Emoji Explorer - 絵文字クイズアプリ">
+    <meta property="twitter:description" content="絵文字の名前を覚えるクイズアプリ">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">🎯 Emoji Explorer</h1>
+        </header>
+
+        <main class="main-content">
+            <!-- カテゴリ選択セクション -->
+            <section class="category-section">
+                <h2 class="section-title">Choose category</h2>
+                <div class="category-grid" id="categoryGrid">
+                    <!-- カテゴリチェックボックスがJavaScriptで動的に生成される -->
+                </div>
+            </section>
+
+            <!-- 絵文字表示セクション -->
+            <section class="emoji-section">
+                <div class="emoji-card" id="emojiCard">
+                    <div class="emoji-display" id="emojiDisplay">
+                        <span class="emoji" id="emojiChar">🎯</span>
+                        <span class="emoji-name" id="emojiName">アプリを読み込み中...</span>
+                    </div>
+                    <div class="emoji-info" id="emojiInfo">
+                        <table class="category-table">
+                            <tr>
+                                <td class="category-label">Category</td>
+                                <td class="category-value" id="categoryValue">-</td>
+                            </tr>
+                            <tr>
+                                <td class="category-label">Subcategory</td>
+                                <td class="category-value" id="subcategoryValue">-</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <button class="next-button" id="nextButton" disabled>
+                        Next
+                    </button>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2025 Emoji Explorer. Made with ❤️</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

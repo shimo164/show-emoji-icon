@@ -1,0 +1,241 @@
+class EmojiExplorer {
+    constructor() {
+        this.emojiData = {};
+        this.allEmojis = [];
+        this.filteredEmojis = [];
+        this.currentEmoji = null;
+        this.selectedCategories = new Set();
+
+        this.init();
+    }
+
+    async init() {
+        try {
+            await this.loadEmojiData();
+            this.setupEventListeners();
+            this.renderCategories();
+            this.showRandomEmoji();
+        } catch (error) {
+            console.error('初期化エラー:', error);
+            this.showError('データの読み込みに失敗しました。');
+        }
+    }
+
+    async loadEmojiData() {
+        try {
+            const response = await fetch('emojis_by_main_categories.json');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            this.emojiData = await response.json();
+            this.processEmojiData();
+        } catch (error) {
+            console.error('JSONファイルの読み込みエラー:', error);
+            throw error;
+        }
+    }
+
+    processEmojiData() {
+        this.allEmojis = [];
+
+        // 全ての絵文字を平坦化
+        Object.entries(this.emojiData).forEach(([mainCategory, subcategories]) => {
+            Object.entries(subcategories).forEach(([subcategory, emojis]) => {
+                emojis.forEach(emoji => {
+                    this.allEmojis.push({
+                        ...emoji,
+                        mainCategory,
+                        subcategory
+                    });
+                });
+            });
+        });
+
+        // 初期状態では全カテゴリを選択
+        this.selectedCategories = new Set(Object.keys(this.emojiData));
+        this.updateFilteredEmojis();
+    }
+
+    updateFilteredEmojis() {
+        this.filteredEmojis = this.allEmojis.filter(emoji =>
+            this.selectedCategories.has(emoji.mainCategory)
+        );
+    }
+
+    renderCategories() {
+        const categoryGrid = document.getElementById('categoryGrid');
+        categoryGrid.innerHTML = '';
+
+        Object.entries(this.emojiData).forEach(([category, subcategories]) => {
+            const emojiCount = Object.values(subcategories).reduce((sum, emojis) => sum + emojis.length, 0);
+
+            const categoryItem = document.createElement('div');
+            categoryItem.className = 'category-item checked';
+
+            categoryItem.innerHTML = `
+                <input type="checkbox"
+                       class="category-checkbox"
+                       id="category-${category}"
+                       checked
+                       data-category="${category}">
+                <label class="category-label" for="category-${category}">
+                    ${category}
+                </label>
+                <span class="category-count">${emojiCount}</span>
+            `;
+
+            categoryGrid.appendChild(categoryItem);
+        });
+    }
+
+    setupEventListeners() {
+        // Nextボタン
+        document.getElementById('nextButton').addEventListener('click', () => {
+            this.showRandomEmoji();
+        });
+
+        // カテゴリアイテム全体をクリック可能に
+        document.getElementById('categoryGrid').addEventListener('click', (e) => {
+            const categoryItem = e.target.closest('.category-item');
+            if (categoryItem) {
+                const checkbox = categoryItem.querySelector('.category-checkbox');
+
+                // チェックボックス自体がクリックされた場合は自然な動作に任せる
+                if (e.target === checkbox) {
+                    return;
+                }
+                
+                // category-item内の他の部分がクリックされた場合
+                e.preventDefault();
+                e.stopPropagation();
+                
+                // チェックボックスの状態を切り替え
+                checkbox.checked = !checkbox.checked;
+                
+                // change イベントを手動で発火
+                const changeEvent = new Event('change', { bubbles: true });
+                checkbox.dispatchEvent(changeEvent);
+            }
+        });
+
+        // カテゴリチェックボックスの変更
+        document.getElementById('categoryGrid').addEventListener('change', (e) => {
+            if (e.target.type === 'checkbox') {
+                this.handleCategoryChange(e);
+            }
+        });
+
+        // キーボードショートカット
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' || e.code === 'Enter') {
+                e.preventDefault();
+                this.showRandomEmoji();
+            }
+        });
+    }
+
+    handleCategoryChange(e) {
+        const category = e.target.dataset.category;
+        const categoryItem = e.target.closest('.category-item');
+
+        if (e.target.checked) {
+            this.selectedCategories.add(category);
+            categoryItem.classList.add('checked');
+        } else {
+            // 最後の1つは外せない
+            if (this.selectedCategories.size <= 1) {
+                e.target.checked = true;
+                this.showNotification('最低1つのカテゴリを選択してください');
+                return;
+            }
+
+            this.selectedCategories.delete(category);
+            categoryItem.classList.remove('checked');
+        }
+
+        this.updateFilteredEmojis();
+
+        // 現在表示中の絵文字が選択されたカテゴリに含まれない場合、新しい絵文字を表示
+        if (this.currentEmoji && !this.selectedCategories.has(this.currentEmoji.mainCategory)) {
+            this.showRandomEmoji();
+        }
+    }
+
+    showRandomEmoji() {
+        if (this.filteredEmojis.length === 0) {
+            this.showError('表示できる絵文字がありません');
+            return;
+        }
+
+        // ランダムに絵文字を選択
+        const randomIndex = Math.floor(Math.random() * this.filteredEmojis.length);
+        this.currentEmoji = this.filteredEmojis[randomIndex];
+
+        this.displayEmoji(this.currentEmoji);
+
+        // Nextボタンを有効化
+        document.getElementById('nextButton').disabled = false;
+    }
+
+    displayEmoji(emoji) {
+        const emojiCard = document.getElementById('emojiCard');
+        emojiCard.classList.add('loading');
+
+        setTimeout(() => {
+            document.getElementById('emojiChar').textContent = emoji.emoji;
+            document.getElementById('emojiName').textContent = emoji.description;
+            document.getElementById('categoryValue').textContent = emoji.mainCategory;
+            document.getElementById('subcategoryValue').textContent = emoji.subcategory;
+
+            emojiCard.classList.remove('loading');
+        }, 100);
+    }
+
+    showError(message) {
+        document.getElementById('emojiChar').textContent = '❌';
+        document.getElementById('emojiName').textContent = message;
+        document.getElementById('categoryValue').textContent = 'エラー';
+        document.getElementById('subcategoryValue').textContent = '';
+    }
+
+    showNotification(message) {
+        // 簡単な通知表示
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #ff6b6b;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+            font-weight: 500;
+        `;
+        notification.textContent = message;
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+            notification.remove();
+        }, 3000);
+    }
+}
+
+// アプリケーション開始
+document.addEventListener('DOMContentLoaded', () => {
+    new EmojiExplorer();
+});
+
+// PWA対応のためのサービスワーカー登録（オプション）
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+            .then(registration => {
+                console.log('SW registered: ', registration);
+            })
+            .catch(registrationError => {
+                console.log('SW registration failed: ', registrationError);
+            });
+    });
+}
