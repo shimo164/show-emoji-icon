@@ -14,6 +14,7 @@ class EmojiExplorer {
             await this.loadEmojiData();
             this.setupEventListeners();
             this.renderCategories();
+            // 初期表示は1回だけ
             this.showRandomEmoji();
         } catch (error) {
             console.error('初期化エラー:', error);
@@ -158,15 +159,20 @@ class EmojiExplorer {
 
         this.updateFilteredEmojis();
 
-        // 現在表示中の絵文字が選択されたカテゴリに含まれない場合、新しい絵文字を表示
+        // 現在表示中の絵文字が選択されたカテゴリに含まれない場合のみ、新しい絵文字を表示
         if (this.currentEmoji && !this.selectedCategories.has(this.currentEmoji.mainCategory)) {
             this.showRandomEmoji();
+        }
+
+        // 全てのカテゴリが解除された場合の処理
+        if (this.selectedCategories.size === 0) {
+            this.showNoEmojiMessage();
         }
     }
 
     showRandomEmoji() {
         if (this.filteredEmojis.length === 0) {
-            this.showNotification('カテゴリが選択されていません。カテゴリを選択してください。');
+            this.showNotification('カテゴリを1つ以上選択してください');
             this.showNoEmojiMessage();
             return;
         }
@@ -204,7 +210,7 @@ class EmojiExplorer {
 
     showNoEmojiMessage() {
         document.getElementById('emojiChar').textContent = '';
-        document.getElementById('emojiName').textContent = '表示できる絵文字がありません。カテゴリを選択してください';
+        document.getElementById('emojiName').textContent = '表示できる絵文字がありません。カテゴリを1つ以上選択してください';
         document.getElementById('categoryValue').textContent = '-';
         document.getElementById('subcategoryValue').textContent = '-';
     }
@@ -216,7 +222,7 @@ class EmojiExplorer {
             position: fixed;
             top: 20px;
             right: 20px;
-            background: #ff6b6b;
+            background: #32cd32; /* Stronger green color */
             color: white;
             padding: 15px 20px;
             border-radius: 10px;
@@ -243,7 +249,7 @@ class EmojiExplorer {
             }
         });
         this.updateFilteredEmojis();
-        // 全選択時は自動でNextボタンを押さない
+        // 全選択時は自動で新しい絵文字を表示しない
     }
 
     deselectAllCategories() {
@@ -257,7 +263,7 @@ class EmojiExplorer {
             }
         });
         this.updateFilteredEmojis();
-        this.showNotification('全てのカテゴリが解除されました。カテゴリを選択してください。');
+        this.showNotification('カテゴリを1つ以上選択してください');
     }
 }
 
