@@ -95,6 +95,11 @@ class EmojiExplorer {
             this.showRandomEmoji();
         });
 
+        // Copyボタン
+        document.getElementById('copyButton').addEventListener('click', () => {
+            this.copyEmojiToClipboard();
+        });
+
         // 全て選択ボタン
         document.getElementById('selectAllButton').addEventListener('click', () => {
             this.selectAllCategories();
@@ -197,6 +202,9 @@ class EmojiExplorer {
             document.getElementById('categoryValue').textContent = emoji.mainCategory;
             document.getElementById('subcategoryValue').textContent = emoji.subcategory;
 
+            // Copyボタンを有効化
+            document.getElementById('copyButton').disabled = false;
+
             emojiCard.classList.remove('loading');
         }, 100);
     }
@@ -206,6 +214,9 @@ class EmojiExplorer {
         document.getElementById('emojiName').textContent = message;
         document.getElementById('categoryValue').textContent = 'エラー';
         document.getElementById('subcategoryValue').textContent = '';
+        
+        // Copyボタンを無効化
+        document.getElementById('copyButton').disabled = true;
     }
 
     showNoEmojiMessage() {
@@ -213,6 +224,58 @@ class EmojiExplorer {
         document.getElementById('emojiName').textContent = '表示できる絵文字がありません。カテゴリを1つ以上選択してください';
         document.getElementById('categoryValue').textContent = '-';
         document.getElementById('subcategoryValue').textContent = '-';
+        
+        // Copyボタンを無効化
+        document.getElementById('copyButton').disabled = true;
+    }
+
+    async copyEmojiToClipboard() {
+        if (!this.currentEmoji) {
+            this.showNotification('コピーする絵文字がありません');
+            return;
+        }
+
+        try {
+            await navigator.clipboard.writeText(this.currentEmoji.emoji);
+            this.showNotification(`${this.currentEmoji.emoji} をコピーしました！`);
+            
+            // Copyボタンの一時的なフィードバック
+            const copyButton = document.getElementById('copyButton');
+            const originalText = copyButton.innerHTML;
+            copyButton.innerHTML = '✅ Copied!';
+            copyButton.disabled = true;
+            
+            setTimeout(() => {
+                copyButton.innerHTML = originalText;
+                copyButton.disabled = false;
+            }, 1500);
+            
+        } catch (err) {
+            console.error('クリップボードへのコピーに失敗:', err);
+            // フォールバック: 古いブラウザ対応
+            this.fallbackCopyToClipboard(this.currentEmoji.emoji);
+        }
+    }
+
+    fallbackCopyToClipboard(text) {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-999999px';
+        textArea.style.top = '-999999px';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        
+        try {
+            document.execCommand('copy');
+            this.showNotification(`${text} をコピーしました！`);
+        } catch (err) {
+            console.error('フォールバックコピーも失敗:', err);
+            this.showNotification('コピーに失敗しました');
+        }
+        
+        document.body.removeChild(textArea);
     }
 
     showNotification(message) {

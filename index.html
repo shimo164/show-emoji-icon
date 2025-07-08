@@ -25,26 +25,15 @@
     <div class="container">
         <header class="header">
             <h1 class="title">🎯 Emoji Explorer</h1>
+            <div class="header-description">Nextボタンを押すとランダムで次のEmojiを表示します。カテゴリで対象を選べます。</div>
         </header>
-
         <main class="main-content">
-            <!-- カテゴリ選択セクション -->
-            <section class="category-section">
-                <div class="category-header">
-                    <h2 class="section-title">カテゴリ選択</h2>
-                    <div class="category-controls">
-                        <button class="control-button" id="selectAllButton">全選択</button>
-                        <button class="control-button" id="deselectAllButton">全解除</button>
-                    </div>
-                </div>
-                <div class="category-grid" id="categoryGrid">
-                    <!-- カテゴリチェックボックスがJavaScriptで動的に生成される -->
-                </div>
-            </section>
-
             <!-- 絵文字表示セクション -->
             <section class="emoji-section">
                 <div class="emoji-card" id="emojiCard">
+                    <button class="copy-button" id="copyButton" title="絵文字をコピー" disabled>
+                        Copy
+                    </button>
                     <div class="emoji-display" id="emojiDisplay">
                         <span class="emoji" id="emojiChar"></span>
                         <span class="emoji-name" id="emojiName">アプリを読み込み中...</span>
@@ -69,11 +58,21 @@
                     </button>
                 </div>
             </section>
-        </main>
 
-        <footer class="footer">
-            <p>&copy; 2025 Emoji Explorer. Made with ❤️</p>
-        </footer>
+            <!-- カテゴリ選択セクション -->
+            <section class="category-section">
+                <div class="category-header">
+                    <h2 class="section-title">カテゴリ選択</h2>
+                    <div class="category-controls">
+                        <button class="control-button" id="selectAllButton">全選択</button>
+                        <button class="control-button" id="deselectAllButton">全解除</button>
+                    </div>
+                </div>
+                <div class="category-grid" id="categoryGrid">
+                    <!-- カテゴリチェックボックスがJavaScriptで動的に生成される -->
+                </div>
+            </section>
+        </main>
     </div>
 
     <script src="script.js"></script>
