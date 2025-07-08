@@ -30,7 +30,13 @@
         <main class="main-content">
             <!-- カテゴリ選択セクション -->
             <section class="category-section">
-                <h2 class="section-title">Choose category</h2>
+                <div class="category-header">
+                    <h2 class="section-title">カテゴリ</h2>
+                    <div class="category-controls">
+                        <button class="control-button" id="selectAllButton">全選択</button>
+                        <button class="control-button" id="deselectAllButton">全解除</button>
+                    </div>
+                </div>
                 <div class="category-grid" id="categoryGrid">
                     <!-- カテゴリチェックボックスがJavaScriptで動的に生成される -->
                 </div>

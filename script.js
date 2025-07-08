@@ -94,6 +94,16 @@ class EmojiExplorer {
             this.showRandomEmoji();
         });
 
+        // 全て選択ボタン
+        document.getElementById('selectAllButton').addEventListener('click', () => {
+            this.selectAllCategories();
+        });
+
+        // 全て解除ボタン
+        document.getElementById('deselectAllButton').addEventListener('click', () => {
+            this.deselectAllCategories();
+        });
+
         // カテゴリアイテム全体をクリック可能に
         document.getElementById('categoryGrid').addEventListener('click', (e) => {
             const categoryItem = e.target.closest('.category-item');
@@ -104,14 +114,14 @@ class EmojiExplorer {
                 if (e.target === checkbox) {
                     return;
                 }
-                
+
                 // category-item内の他の部分がクリックされた場合
                 e.preventDefault();
                 e.stopPropagation();
-                
+
                 // チェックボックスの状態を切り替え
                 checkbox.checked = !checkbox.checked;
-                
+
                 // change イベントを手動で発火
                 const changeEvent = new Event('change', { bubbles: true });
                 checkbox.dispatchEvent(changeEvent);
@@ -142,13 +152,6 @@ class EmojiExplorer {
             this.selectedCategories.add(category);
             categoryItem.classList.add('checked');
         } else {
-            // 最後の1つは外せない
-            if (this.selectedCategories.size <= 1) {
-                e.target.checked = true;
-                this.showNotification('最低1つのカテゴリを選択してください');
-                return;
-            }
-
             this.selectedCategories.delete(category);
             categoryItem.classList.remove('checked');
         }
@@ -163,7 +166,8 @@ class EmojiExplorer {
 
     showRandomEmoji() {
         if (this.filteredEmojis.length === 0) {
-            this.showError('表示できる絵文字がありません');
+            this.showNotification('カテゴリが選択されていません。カテゴリを選択してください。');
+            this.showNoEmojiMessage();
             return;
         }
 
@@ -192,10 +196,17 @@ class EmojiExplorer {
     }
 
     showError(message) {
-        document.getElementById('emojiChar').textContent = '❌';
+        document.getElementById('emojiChar').textContent = '';
         document.getElementById('emojiName').textContent = message;
         document.getElementById('categoryValue').textContent = 'エラー';
         document.getElementById('subcategoryValue').textContent = '';
+    }
+
+    showNoEmojiMessage() {
+        document.getElementById('emojiChar').textContent = '';
+        document.getElementById('emojiName').textContent = '表示できる絵文字がありません。カテゴリを選択してください';
+        document.getElementById('categoryValue').textContent = '-';
+        document.getElementById('subcategoryValue').textContent = '-';
     }
 
     showNotification(message) {
@@ -219,6 +230,34 @@ class EmojiExplorer {
         setTimeout(() => {
             notification.remove();
         }, 3000);
+    }
+
+    selectAllCategories() {
+        const checkboxes = document.querySelectorAll('.category-checkbox');
+        checkboxes.forEach(checkbox => {
+            if (!checkbox.checked) {
+                checkbox.checked = true;
+                const categoryItem = checkbox.closest('.category-item');
+                categoryItem.classList.add('checked');
+                this.selectedCategories.add(checkbox.dataset.category);
+            }
+        });
+        this.updateFilteredEmojis();
+        // 全選択時は自動でNextボタンを押さない
+    }
+
+    deselectAllCategories() {
+        const checkboxes = document.querySelectorAll('.category-checkbox');
+        checkboxes.forEach(checkbox => {
+            if (checkbox.checked) {
+                checkbox.checked = false;
+                const categoryItem = checkbox.closest('.category-item');
+                categoryItem.classList.remove('checked');
+                this.selectedCategories.delete(checkbox.dataset.category);
+            }
+        });
+        this.updateFilteredEmojis();
+        this.showNotification('全てのカテゴリが解除されました。カテゴリを選択してください。');
     }
 }
 
