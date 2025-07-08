@@ -93,10 +93,8 @@
     "Tongues, Hands & Accessories": [
       {
         "emoji": "😋",
-        "description": "😋"
-      }
-    ],
-    "Face Savoring Food": [
+        "description": "Face Savoring Food"
+      },
       {
         "emoji": "😛",
         "description": "Face with Tongue"
@@ -433,7 +431,7 @@
       },
       {
         "emoji": "🤬",
-        "description": "🤬"
+        "description": "Face with Symbols on Mouth"
       }
     ],
     "Costume, Creature & Animal": [
@@ -973,10 +971,8 @@
       },
       {
         "emoji": "🫂",
-        "description": "🫂"
-      }
-    ],
-    "People Hugging": [
+        "description": "People Hugging"
+      },
       {
         "emoji": "🦰",
         "description": "Red Hair"
@@ -1327,10 +1323,8 @@
       },
       {
         "emoji": "👯",
-        "description": "👯"
-      }
-    ],
-    "People with Bunny Ears": [
+        "description": "People with Bunny Ears"
+      },
       {
         "emoji": "👯‍♂️",
         "description": "Men with Bunny Ears"
@@ -1338,9 +1332,159 @@
       {
         "emoji": "👯‍♀️",
         "description": "Women with Bunny Ears"
-      }
-    ],
-    "People Wrestling": [
+      },
+      {
+        "emoji": "🧖",
+        "description": "Person in Steamy Room"
+      },
+      {
+        "emoji": "🧖‍♂️",
+        "description": "Man in Steamy Room"
+      },
+      {
+        "emoji": "🧖‍♀️",
+        "description": "Woman in Steamy Room"
+      },
+      {
+        "emoji": "🧗",
+        "description": "Person Climbing"
+      },
+      {
+        "emoji": "🧗‍♂️",
+        "description": "Man Climbing"
+      },
+      {
+        "emoji": "🧗‍♀️",
+        "description": "Woman Climbing"
+      },
+      {
+        "emoji": "🤺",
+        "description": "Person Fencing"
+      },
+      {
+        "emoji": "🏇",
+        "description": "Horse Racing"
+      },
+      {
+        "emoji": "⛷️",
+        "description": "Skier"
+      },
+      {
+        "emoji": "🏂",
+        "description": "Snowboarder"
+      },
+      {
+        "emoji": "🏌️",
+        "description": "Person Golfing"
+      },
+      {
+        "emoji": "🏌️‍♂️",
+        "description": "Man Golfing"
+      },
+      {
+        "emoji": "🏌️‍♀️",
+        "description": "Woman Golfing"
+      },
+      {
+        "emoji": "🏄",
+        "description": "Person Surfing"
+      },
+      {
+        "emoji": "🏄‍♂️",
+        "description": "Man Surfing"
+      },
+      {
+        "emoji": "🏄‍♀️",
+        "description": "Woman Surfing"
+      },
+      {
+        "emoji": "🚣",
+        "description": "Person Rowing Boat"
+      },
+      {
+        "emoji": "🚣‍♂️",
+        "description": "Man Rowing Boat"
+      },
+      {
+        "emoji": "🚣‍♀️",
+        "description": "Woman Rowing Boat"
+      },
+      {
+        "emoji": "🏊",
+        "description": "Person Swimming"
+      },
+      {
+        "emoji": "🏊‍♂️",
+        "description": "Man Swimming"
+      },
+      {
+        "emoji": "🏊‍♀️",
+        "description": "Woman Swimming"
+      },
+      {
+        "emoji": "⛹️",
+        "description": "Person Bouncing Ball"
+      },
+      {
+        "emoji": "⛹️‍♂️",
+        "description": "Man Bouncing Ball"
+      },
+      {
+        "emoji": "⛹️‍♀️",
+        "description": "Woman Bouncing Ball"
+      },
+      {
+        "emoji": "🏋️",
+        "description": "Person Lifting Weights"
+      },
+      {
+        "emoji": "🏋️‍♂️",
+        "description": "Man Lifting Weights"
+      },
+      {
+        "emoji": "🏋️‍♀️",
+        "description": "Woman Lifting Weights"
+      },
+      {
+        "emoji": "🚴",
+        "description": "Person Biking"
+      },
+      {
+        "emoji": "🚴‍♂️",
+        "description": "Man Biking"
+      },
+      {
+        "emoji": "🚴‍♀️",
+        "description": "Woman Biking"
+      },
+      {
+        "emoji": "🚵",
+        "description": "Person Mountain Biking"
+      },
+      {
+        "emoji": "🚵‍♂️",
+        "description": "Man Mountain Biking"
+      },
+      {
+        "emoji": "🚵‍♀️",
+        "description": "Woman Mountain Biking"
+      },
+      {
+        "emoji": "🤸",
+        "description": "Person Cartwheeling"
+      },
+      {
+        "emoji": "🤸‍♂️",
+        "description": "Man Cartwheeling"
+      },
+      {
+        "emoji": "🤸‍♀️",
+        "description": "Woman Cartwheeling"
+      },
+      {
+        "emoji": "🤼",
+        "description": "People Wrestling"
+      },
       {
         "emoji": "🤼‍♂️",
         "description": "Men Wrestling"
@@ -1813,16 +1957,22 @@
       },
       {
         "emoji": "👯",
-        "description": "👯"
+        "description": "People with Bunny Ears"
+      },
+      {
+        "emoji": "👯‍♂️",
+        "description": "Men with Bunny Ears"
+      },
+      {
+        "emoji": "👯‍♀️",
+        "description": "Women with Bunny Ears"
       }
     ],
     "Families & Couples": [
       {
         "emoji": "🧑‍🤝‍🧑",
-        "description": "🧑‍🤝‍🧑"
-      }
-    ],
-    "People Holding Hands": [
+        "description": "People Holding Hands"
+      },
       {
         "emoji": "👭",
         "description": "Women Holding Hands"
@@ -2831,7 +2981,7 @@
       }
     ]
   },
-  "Food & Drink": {
+  "Food-drink": {
     "Fruits": [
       {
         "emoji": "🍇",
@@ -3095,16 +3245,12 @@
       },
       {
         "emoji": "🥘",
-        "description": "🥘"
-      }
-    ],
-    "Shallow Pan of Food": [
+        "description": "Shallow Pan of Food"
+      },
       {
         "emoji": "🍲",
-        "description": "🍲"
-      }
-    ],
-    "Pot of Food": [
+        "description": "Pot of Food"
+      },
       {
         "emoji": "🫕",
         "description": "Fondue"
@@ -3131,10 +3277,8 @@
       },
       {
         "emoji": "🥫",
-        "description": "🥫"
-      }
-    ],
-    "Canned Food": [
+        "description": "Canned Food"
+      },
       {
         "emoji": "🍝",
         "description": "Spaghetti"
@@ -5722,9 +5866,7 @@
       {
         "emoji": "🔣",
         "description": "Input Symbols"
-      }
-    ],
-    "Input Symbols": [
+      },
       {
         "emoji": "🔤",
         "description": "Input Latin Letters"
@@ -5933,10 +6075,8 @@
       },
       {
         "emoji": "🎌",
-        "description": "🎌"
-      }
-    ],
-    "Crossed Flags": [
+        "description": "Crossed Flags"
+      },
       {
         "emoji": "🏴",
         "description": "Black Flag"
