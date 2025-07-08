@@ -293,9 +293,11 @@ body {
     min-width: 240px;
 }
 
-  .next-button:hover {
-    background-color: #facc15; /* 少し濃い黄色でホバー効果 */
-  }
+.next-button:active {
+    transform: translateY(2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    background-color: #eab308; /* より深い黄色（明度↓ 彩度↑） */
+}
 
 .next-button:disabled {
     opacity: 0.6;
