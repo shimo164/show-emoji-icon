@@ -182,9 +182,22 @@ class EmojiExplorer {
             return;
         }
 
+        // 前回の絵文字を保存
+        const previousEmoji = this.currentEmoji;
+        
         // ランダムに絵文字を選択
-        const randomIndex = Math.floor(Math.random() * this.filteredEmojis.length);
+        let randomIndex = Math.floor(Math.random() * this.filteredEmojis.length);
         this.currentEmoji = this.filteredEmojis[randomIndex];
+        
+        // 選択肢が2つ以上あり、前回と同じ絵文字が選ばれた場合は再選択
+        if (this.filteredEmojis.length > 1 && previousEmoji && 
+            this.currentEmoji.emoji === previousEmoji.emoji) {
+            // 再度ランダムに選択（前回と違うものが選ばれるまで）
+            do {
+                randomIndex = Math.floor(Math.random() * this.filteredEmojis.length);
+                this.currentEmoji = this.filteredEmojis[randomIndex];
+            } while (this.currentEmoji.emoji === previousEmoji.emoji);
+        }
 
         this.displayEmoji(this.currentEmoji);
 
